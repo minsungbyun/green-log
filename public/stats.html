@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>통계 · AI 식물관찰일지</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-main">🌱 그린로그</span>
+        <span class="logo-sub">AI와 함께 기록하는 나의 식물 성장일지</span>
+      </a>
+      <nav class="nav">
+        <a href="/">홈</a>
+        <a href="/plants.html">식물 등록</a>
+        <a href="/journal.html">관찰일지 작성</a>
+        <a href="/list.html">기록 보기</a>
+        <a href="/stats.html" class="active">통계</a>
+        <a href="/mcp.html">MCP</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">통계 / 요약</h1>
+
+    <section class="stats-summary">
+      <div class="stat-box"><div class="stat-num" id="totalPlants">-</div><div class="stat-label">등록된 식물</div></div>
+      <div class="stat-box"><div class="stat-num" id="totalJournals">-</div><div class="stat-label">관찰일지 수</div></div>
+      <div class="stat-box"><div class="stat-num" id="careCount">-</div><div class="stat-label">관리 필요 식물</div></div>
+    </section>
+
+    <section class="card">
+      <h2>식물별 요약</h2>
+      <div id="perPlant" class="per-plant">불러오는 중...</div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container"><small>© AI 식물관찰일지</small></div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/stats.js"></script>
+</body>
+</html>

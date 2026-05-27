@@ -1,0 +1,11 @@
+node_modules/
+.env
+.env.local
+data/journal.json
+public/uploads/*
+!public/uploads/.gitkeep
+.DS_Store
+*.log
+npm-debug.log*
+.vscode/
+.idea/

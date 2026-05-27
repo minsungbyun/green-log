@@ -1,0 +1,13 @@
+{
+  "name": "ai-plant-journal-mcp",
+  "version": "1.0.0",
+  "description": "AI 식물관찰일지 MCP 서버 예시 (stdio JSON-RPC)",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

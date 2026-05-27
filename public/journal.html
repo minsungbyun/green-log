@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>관찰일지 작성 · AI 식물관찰일지</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-main">🌱 그린로그</span>
+        <span class="logo-sub">AI와 함께 기록하는 나의 식물 성장일지</span>
+      </a>
+      <nav class="nav">
+        <a href="/">홈</a>
+        <a href="/plants.html">식물 등록</a>
+        <a href="/journal.html" class="active">관찰일지 작성</a>
+        <a href="/list.html">기록 보기</a>
+        <a href="/stats.html">통계</a>
+        <a href="/mcp.html">MCP</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">관찰일지 작성</h1>
+
+    <section class="card">
+      <form id="journal-form" class="form-grid">
+        <label>
+          <span class="label-text"><span class="req">*</span> 식물 선택</span>
+          <select id="plantSelect" name="plantId" required>
+            <option value="">-- 등록된 식물 선택 --</option>
+          </select>
+        </label>
+        <label>
+          <span class="label-text"><span class="req">*</span> 관찰일자</span>
+          <input type="date" name="observedAt" required />
+        </label>
+
+        <label>잎 상태
+          <select name="leafState">
+            <option value="">선택</option>
+            <option>싱싱함</option>
+            <option>보통</option>
+            <option>시들음</option>
+            <option>변색</option>
+          </select>
+        </label>
+        <label>흙 상태
+          <select name="soilState">
+            <option value="">선택</option>
+            <option>적당함</option>
+            <option>건조함</option>
+            <option>매우 건조함</option>
+            <option>너무 촉촉함</option>
+          </select>
+        </label>
+        <label>햇빛 상태
+          <select name="sunState">
+            <option value="">선택</option>
+            <option>충분함</option>
+            <option>보통</option>
+            <option>부족함</option>
+          </select>
+        </label>
+        <label>물주기
+          <select name="watered">
+            <option value="false">물 안 줌</option>
+            <option value="true">물 줌</option>
+          </select>
+        </label>
+
+        <label>키 / 성장 수치 (cm)
+          <input type="number" name="growthCm" min="0" step="0.1" placeholder="예: 12" />
+        </label>
+
+        <label>이전 관찰 사진 (선택)
+          <input type="file" id="photoBeforeInput" accept="image/*" />
+          <small id="photoBeforeStatus" class="hint"></small>
+          <div id="photoBeforePreviewBox" hidden style="margin-top:8px">
+            <img id="photoBeforePreview" alt="이전 관찰 사진 미리보기" style="width:100%;max-width:240px;border-radius:10px;display:block" />
+          </div>
+        </label>
+        <label>이번 관찰 사진
+          <input type="file" id="photoAfterInput" accept="image/*" />
+          <small id="photoAfterStatus" class="hint"></small>
+          <div id="photoAfterPreviewBox" hidden style="margin-top:8px">
+            <img id="photoAfterPreview" alt="이번 관찰 사진 미리보기" style="width:100%;max-width:240px;border-radius:10px;display:block" />
+          </div>
+        </label>
+
+        <div class="full" id="autoFillBox" hidden>
+          <button type="button" id="btnAutoFill" class="btn btn-secondary">📸 사진으로 자동 채우기 (AI)</button>
+          <small class="hint" style="display:block;margin-top:6px">
+            사진 전/후를 업로드하면 잎/흙/햇빛/물주기/메모/학명/적정조건을 AI가 자동으로 채워 줍니다. 결과는 검토 후 수정 가능합니다.
+          </small>
+        </div>
+        <div class="full" id="autoFillNotice" hidden>
+          <small class="hint">
+            ℹ️ 사진 자동 분석 기능을 사용하려면 서버 환경변수 <code>ANTHROPIC_API_KEY</code> 설정이 필요합니다. 현재는 수동 입력만 가능합니다.
+          </small>
+        </div>
+
+        <label class="full">자유 메모
+          <textarea name="memo" rows="3" placeholder="예: 새 잎이 2장 올라왔다."></textarea>
+        </label>
+
+        <input type="hidden" name="photoUrl" id="photoUrl" />
+        <input type="hidden" name="photoBeforeUrl" id="photoBeforeUrl" />
+        <input type="hidden" name="photoAfterUrl" id="photoAfterUrl" />
+        <input type="hidden" name="plantName" id="plantNameHidden" />
+        <input type="hidden" name="aiSummary" id="aiSummary" />
+        <input type="hidden" name="aiAdvice" id="aiAdvice" />
+        <input type="hidden" name="species" id="speciesHidden" />
+        <input type="hidden" name="careInfo" id="careInfoHidden" />
+
+        <div class="form-actions full">
+          <button type="button" id="btnAI" class="btn btn-secondary">AI 요약/조언 생성</button>
+          <button type="submit" class="btn btn-primary">저장</button>
+        </div>
+      </form>
+
+      <div id="speciesResult" class="ai-result" hidden>
+        <h3>🌿 식물 정보</h3>
+        <div class="ai-block">
+          <strong>학명</strong>
+          <p id="speciesText"></p>
+        </div>
+        <div class="ai-block">
+          <strong>적정 일조량</strong>
+          <p id="careLightText"></p>
+        </div>
+        <div class="ai-block">
+          <strong>적정 습도</strong>
+          <p id="careHumidityText"></p>
+        </div>
+        <div class="ai-block">
+          <strong>권장 물주기</strong>
+          <p id="careWateringText"></p>
+        </div>
+      </div>
+
+      <div id="aiResult" class="ai-result" hidden>
+        <h3>AI 결과 미리보기</h3>
+        <div class="ai-block">
+          <strong>관찰 요약</strong>
+          <p id="aiSummaryText"></p>
+        </div>
+        <div class="ai-block">
+          <strong>관리 조언</strong>
+          <p id="aiAdviceText"></p>
+        </div>
+        <small id="aiSource" class="hint"></small>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container"><small>© AI 식물관찰일지</small></div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/journal.js"></script>
+</body>
+</html>

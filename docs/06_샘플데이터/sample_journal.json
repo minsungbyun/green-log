@@ -1,0 +1,56 @@
+{
+  "plants": [
+    {
+      "id": "plant_sample_basil",
+      "name": "바질",
+      "species": "허브",
+      "location": "거실 창가",
+      "startedAt": "2026-04-10",
+      "memo": "씨앗부터 발아 성공",
+      "createdAt": "2026-04-10T10:00:00.000Z"
+    },
+    {
+      "id": "plant_sample_monstera",
+      "name": "몬스테라",
+      "species": "관엽식물",
+      "location": "침실",
+      "startedAt": "2026-01-05",
+      "memo": "지인에게 분양",
+      "createdAt": "2026-01-05T10:00:00.000Z"
+    }
+  ],
+  "journals": [
+    {
+      "id": "jrn_sample_1",
+      "plantId": "plant_sample_basil",
+      "plantName": "바질",
+      "observedAt": "2026-05-24",
+      "leafState": "싱싱함",
+      "soilState": "건조함",
+      "sunState": "보통",
+      "watered": true,
+      "growthCm": 12,
+      "photoUrl": "",
+      "memo": "새 잎이 2장 올라왔다.",
+      "aiSummary": "오늘 바질은 전반적으로 건강한 상태입니다. 잎 상태가 싱싱하여 생장 흐름이 양호합니다. 흙 상태가 건조함으로 확인되었습니다. 햇빛은 보통 정도입니다. 오늘 물을 주었습니다. 측정된 키는 12cm 입니다. 메모: 새 잎이 2장 올라왔다.",
+      "aiAdvice": "[관리 등급: 보통] 오늘 물주기를 완료했으므로, 다음 관찰 때 흙이 충분히 마를 때까지 추가 급수는 피합니다.",
+      "createdAt": "2026-05-24T10:00:00.000Z"
+    },
+    {
+      "id": "jrn_sample_2",
+      "plantId": "plant_sample_monstera",
+      "plantName": "몬스테라",
+      "observedAt": "2026-05-22",
+      "leafState": "변색",
+      "soilState": "너무 촉촉함",
+      "sunState": "부족함",
+      "watered": false,
+      "growthCm": 45,
+      "photoUrl": "",
+      "memo": "아랫잎이 노랗게 변함",
+      "aiSummary": "오늘 몬스테라은(는) 관리가 필요한 상태입니다. 잎 상태가 변색으로 관찰되어 점검이 필요합니다. 흙 상태가 너무 촉촉함으로 확인되었습니다. 햇빛이 부족함으로 광 부족이 우려됩니다.",
+      "aiAdvice": "[관리 등급: 주의] 흙이 과습 상태입니다. 다음 물주기는 흙 표면이 마를 때까지 미루세요. 잎 변색은 광량 과다 또는 영양 불균형 신호일 수 있습니다. 위치와 비료 공급 주기를 점검하세요. 햇빛이 부족합니다. 창가 쪽으로 위치를 옮기거나 보조 조명을 검토해 보세요.",
+      "createdAt": "2026-05-22T10:00:00.000Z"
+    }
+  ]
+}

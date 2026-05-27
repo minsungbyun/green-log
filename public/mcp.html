@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCP 확장 구조 · AI 식물관찰일지</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-main">🌱 그린로그</span>
+        <span class="logo-sub">AI와 함께 기록하는 나의 식물 성장일지</span>
+      </a>
+      <nav class="nav">
+        <a href="/">홈</a>
+        <a href="/plants.html">식물 등록</a>
+        <a href="/journal.html">관찰일지 작성</a>
+        <a href="/list.html">기록 보기</a>
+        <a href="/stats.html">통계</a>
+        <a href="/mcp.html" class="active">MCP</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">MCP 기반 확장 구조</h1>
+
+    <section class="card">
+      <p>
+        본 서비스는 <strong>MCP (Model Context Protocol)</strong> 기반 확장 구조를 고려하여 설계되었습니다.
+        AI가 관찰일지 데이터, 외부 식물 정보 API, 캘린더 알림 등과 표준화된 방식으로 연결될 수 있도록
+        핵심 비즈니스 로직(<code>lib/tools.js</code>)을 REST API와 MCP 서버가 공유합니다.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>MCP Tool 설계</h2>
+      <ul class="tool-list">
+        <li>
+          <strong>getPlantLogs</strong> - 특정 식물의 관찰일지 목록을 조회<br />
+          <small>입력: plantName, plantId, from, to / 출력: 관찰일지 배열</small><br />
+          <em>예시: "내 바질 최근 기록 보여줘."</em>
+        </li>
+        <li>
+          <strong>analyzeGrowthTrend</strong> - 키/잎/물주기 기록을 기반으로 성장 추이 분석<br />
+          <small>입력: plantName / 출력: 키 변화량, 물주기 횟수, 요약</small><br />
+          <em>예시: "내 바질 성장 상태 어때?"</em>
+        </li>
+        <li>
+          <strong>suggestCarePlan</strong> - 최근 상태 기반 관리 조언 생성<br />
+          <small>입력: plantName, leafState, soilState, sunState, watered, memo / 출력: 관리 등급, 조언</small><br />
+          <em>예시: "오늘 몬스테라 상태 보고 어떻게 관리할지 알려줘."</em>
+        </li>
+        <li>
+          <strong>exportJournalData</strong> - 관찰일지 데이터를 CSV/JSON으로 내보내기<br />
+          <small>입력: format, plantName, from, to / 출력: 파일</small><br />
+          <em>예시: "내 식물관찰일지 CSV로 내보내줘."</em>
+        </li>
+      </ul>
+      <p>
+        실제 MCP Tool 메타정보는 <a href="/api/mcp/tools">/api/mcp/tools</a> 에서 JSON 으로 확인할 수 있습니다.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>과금 / 비용</h2>
+      <ul>
+        <li>MCP 자체는 과금되는 서비스가 아니라 표준 프로토콜입니다.</li>
+        <li>실제 비용은 AI API 호출, 서버, 저장소 사용량에서 발생합니다.</li>
+        <li>본 MVP 는 Render 무료 플랜 + 규칙 기반 요약 조합으로 운영 비용 0원입니다.</li>
+        <li>AI API Key를 환경변수에 넣으면 자동으로 Anthropic Claude API 호출로 전환됩니다.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>향후 확장 방향</h2>
+      <ul>
+        <li>외부 식물 정보 API 연동 (학명, 적정 일조량, 적정 습도 등)</li>
+        <li>Google Calendar 연동을 통한 물주기 자동 알림</li>
+        <li>이미지 기반 잎/병해충 자동 분류 모델 연결</li>
+        <li>다중 사용자/로그인 지원</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container"><small>© AI 식물관찰일지</small></div>
+  </footer>
+</body>
+</html>

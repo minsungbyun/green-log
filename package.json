@@ -1,0 +1,28 @@
+{
+  "name": "ai-plant-journal",
+  "version": "1.0.0",
+  "description": "AI 식물관찰일지 - 사용자가 식물 성장 상태를 기록하고 AI가 관찰 요약과 관리 조언을 제공하는 웹서비스",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
+    "xlsx": "^0.18.5"
+  },
+  "keywords": [
+    "plant",
+    "journal",
+    "ai",
+    "mcp"
+  ],
+  "author": "",
+  "license": "MIT"
+}

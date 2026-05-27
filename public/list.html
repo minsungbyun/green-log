@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>기록 보기 · AI 식물관찰일지</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-main">🌱 그린로그</span>
+        <span class="logo-sub">AI와 함께 기록하는 나의 식물 성장일지</span>
+      </a>
+      <nav class="nav">
+        <a href="/">홈</a>
+        <a href="/plants.html">식물 등록</a>
+        <a href="/journal.html">관찰일지 작성</a>
+        <a href="/list.html" class="active">기록 보기</a>
+        <a href="/stats.html">통계</a>
+        <a href="/mcp.html">MCP</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">관찰일지 목록</h1>
+
+    <section class="card filter-bar">
+      <div class="form-grid">
+        <label>식물명 검색
+          <input type="text" id="filterName" placeholder="예: 바질" />
+        </label>
+        <label>시작일
+          <input type="date" id="filterFrom" />
+        </label>
+        <label>종료일
+          <input type="date" id="filterTo" />
+        </label>
+        <label>키워드
+          <input type="text" id="filterQ" placeholder="메모/요약 검색" />
+        </label>
+        <div class="form-actions">
+          <button id="btnSearch" class="btn btn-primary">검색</button>
+          <button id="btnReset" type="button" class="btn btn-secondary">초기화</button>
+        </div>
+        <div class="form-actions">
+          <button id="btnExportXlsx" type="button" class="btn btn-secondary">엑셀 내보내기</button>
+          <button id="btnExportCsv" type="button" class="btn btn-secondary">CSV 내보내기</button>
+          <button id="btnExportJson" type="button" class="btn btn-secondary">JSON 내보내기</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="journal-cards" class="journal-cards">불러오는 중...</section>
+  </main>
+
+  <!-- 상세/수정 모달 -->
+  <div id="modal" class="modal" hidden>
+    <div class="modal-inner">
+      <button class="modal-close" id="modalClose">×</button>
+      <h2>관찰일지 수정</h2>
+      <form id="edit-form" class="form-grid">
+        <input type="hidden" name="id" />
+        <label>관찰일자 <input type="date" name="observedAt" required /></label>
+        <label>잎 상태
+          <select name="leafState">
+            <option value="">선택</option><option>싱싱함</option><option>보통</option><option>시들음</option><option>변색</option>
+          </select>
+        </label>
+        <label>흙 상태
+          <select name="soilState">
+            <option value="">선택</option><option>적당함</option><option>건조함</option><option>매우 건조함</option><option>너무 촉촉함</option>
+          </select>
+        </label>
+        <label>햇빛 상태
+          <select name="sunState">
+            <option value="">선택</option><option>충분함</option><option>보통</option><option>부족함</option>
+          </select>
+        </label>
+        <label>물주기
+          <select name="watered"><option value="false">물 안 줌</option><option value="true">물 줌</option></select>
+        </label>
+        <label>키 (cm) <input type="number" name="growthCm" step="0.1" /></label>
+        <label class="full">메모 <textarea name="memo" rows="3"></textarea></label>
+        <div class="form-actions full">
+          <button type="submit" class="btn btn-primary">저장</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container"><small>© AI 식물관찰일지</small></div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/list.js"></script>
+</body>
+</html>
