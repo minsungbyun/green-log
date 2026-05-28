@@ -122,10 +122,12 @@ function wirePlantSelects(refs) {
       // 식물명 셀렉트는 다시 비어있게 시작 → 식물명 직접 입력 표시
       cnb.hidden = false;
     }
+    cni.required = !cnb.hidden; // 식물명 직접입력이 보이면 필수
   });
 
   nameSel.addEventListener('change', () => {
     syncCustomBox(nameSel, cnb, cni);
+    cni.required = !cnb.hidden; // 셀렉트로 고르면 직접입력 숨김 → 필수 해제
   });
 }
 
@@ -183,6 +185,7 @@ function applyExistingToSelects(plant, refs) {
     cnb.hidden = false;
     cni.value = name;
   }
+  cni.required = !cnb.hidden; // 직접입력이 보이면 필수
 
   // location
   const loc = plant.location || '';
@@ -236,6 +239,7 @@ wireLocationSelect(editLocRefs);
 customSpeciesBox.hidden = false;
 customNameBox.hidden = false;
 customLocationBox.hidden = false;
+customNameInput.required = true; // 식물명 직접입력 초기 필수
 
 // ============ AI 상태에 따라 메모 버튼 표시 ============
 
@@ -389,6 +393,7 @@ form.addEventListener('submit', async (e) => {
     customSpeciesInput.value = '';
     customNameBox.hidden = false;
     customNameInput.value = '';
+    customNameInput.required = true;
     customLocationBox.hidden = false;
     customLocationInput.value = '';
     memoTextarea.value = '';
