@@ -452,7 +452,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 .plant-item .actions {
   margin-top: 12px;
-  display: flex; gap: 6px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 5px;
+}
+.plant-item .actions .icon-btn {
+  flex: 0 1 auto;
+  padding: 6px 9px;
+  font-size: 0.76rem;
 }
 
 .icon-btn {
@@ -464,6 +472,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: var(--text-dim);
   cursor: pointer;
   font-family: inherit;
+  white-space: nowrap;
   transition: all 0.2s ease;
 }
 .icon-btn:hover {
