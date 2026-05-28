@@ -72,7 +72,7 @@ const TOOLS = [
   },
   {
     name: 'analyzePlantPhotos',
-    description: '사진(전/후)을 분석해 잎/흙/햇빛/물주기/키/메모/학명/적정조건을 자동으로 추론합니다. ANTHROPIC_API_KEY 필요.',
+    description: '사진(전/후)을 분석해 잎/흙/햇빛/물주기/키/메모/학명/적정조건을 자동으로 추론합니다. GOOGLE_API_KEY 필요.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -85,7 +85,7 @@ const TOOLS = [
   },
   {
     name: 'lookupSpeciesInfo',
-    description: '식물명으로 학명, 적정 일조량, 적정 습도, 권장 물주기 주기를 조회합니다. ANTHROPIC_API_KEY 필요.',
+    description: '식물명으로 학명, 적정 일조량, 적정 습도, 권장 물주기 주기를 조회합니다. GOOGLE_API_KEY 필요.',
     inputSchema: {
       type: 'object',
       properties: {

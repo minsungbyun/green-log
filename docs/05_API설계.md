@@ -47,7 +47,7 @@ DELETE /api/journals/:id                                   → { ok: true }
 
 ## AI
 ```
-POST /api/ai/summary  Journal-like payload → { summary, source: "rule"|"anthropic" }
+POST /api/ai/summary  Journal-like payload → { summary, source: "rule"|"google" }
 POST /api/ai/advice   Journal-like payload → { advice, grade, actions?, source }
 ```
 

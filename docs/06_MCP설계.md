@@ -75,7 +75,7 @@ node mcp-server/server.js
 ## 5) 과금 / 비용
 - MCP 자체는 **과금되는 서비스가 아님** — AI와 외부 도구 연결을 위한 표준 프로토콜
 - 실제 비용 발생 지점:
-  - AI API 호출 (선택, Anthropic Claude API)
+  - AI API 호출 (선택, Google Gemini API)
   - 서버 / 저장소 사용량 (본 프로젝트는 Render 무료 플랜 사용)
 - 기본 모드는 **규칙 기반 = 0원**
 

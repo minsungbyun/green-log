@@ -119,7 +119,7 @@ app.get('/api/ai/status', (req, res) => {
   res.json({
     available: ai.hasApiKey(),
     provider: ai.currentProvider(),
-    model: process.env.GOOGLE_MODEL || 'gemini-1.5-flash',
+    model: process.env.GOOGLE_MODEL || 'gemini-2.5-flash',
   });
 });
 
@@ -139,7 +139,7 @@ app.post('/api/ai/plant-memo', async (req, res) => {
   }
 });
 
-// ---------- 사진 자동 분석 (Claude Vision) ----------
+// ---------- 사진 자동 분석 (Gemini Vision) ----------
 app.post('/api/ai/analyze-photos', async (req, res) => {
   try {
     const result = await ai.analyzePhotos(req.body || {});
@@ -246,7 +246,7 @@ app.get('/api/mcp/tools', (req, res) => {
     },
     {
       name: 'analyzePlantPhotos',
-      description: '사진(전/후)을 분석해 관찰일지 필드를 자동으로 추론합니다. ANTHROPIC_API_KEY 필요.',
+      description: '사진(전/후)을 분석해 관찰일지 필드를 자동으로 추론합니다. GOOGLE_API_KEY 필요.',
       inputSchema: {
         type: 'object',
         properties: {
@@ -259,7 +259,7 @@ app.get('/api/mcp/tools', (req, res) => {
     },
     {
       name: 'lookupSpeciesInfo',
-      description: '식물명으로 학명, 적정 일조량, 습도, 물주기 주기를 조회합니다. ANTHROPIC_API_KEY 필요.',
+      description: '식물명으로 학명, 적정 일조량, 습도, 물주기 주기를 조회합니다. GOOGLE_API_KEY 필요.',
       inputSchema: {
         type: 'object',
         properties: {
@@ -274,5 +274,5 @@ app.get('/api/mcp/tools', (req, res) => {
 // ---------- 시작 ----------
 app.listen(PORT, () => {
   console.log(`AI 식물관찰일지 서버 실행 중: http://localhost:${PORT}`);
-  console.log(`AI 모드: ${process.env.ANTHROPIC_API_KEY ? 'Anthropic Claude API 사용' : '규칙 기반(무료)'}`);
+  console.log(`AI 모드: ${process.env.GOOGLE_API_KEY ? 'Google Gemini API 사용' : '규칙 기반(무료)'}`);
 });

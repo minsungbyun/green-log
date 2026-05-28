@@ -6,7 +6,7 @@
 - **카테고리**: 일상생활 / 라이프로그
 - **기술 스택**: Node.js + Express, Vanilla HTML/CSS/JS
 - **데이터 저장**: 서버 JSON 파일 (`data/journal.json`)
-- **AI 모드**: 규칙 기반(기본) / Anthropic Claude API(환경변수 설정 시 자동 전환)
+- **AI 모드**: 규칙 기반(기본) / Google Gemini API(환경변수 설정 시 자동 전환)
 - **MCP**: 표준화된 4개 Tool 을 통해 AI 에이전트와 연결 가능한 확장 구조 포함
 
 ---
@@ -30,7 +30,7 @@ ai-plant-journal/
 ├─ .env.example             # 환경변수 예시
 ├─ lib/
 │  ├─ storage.js            # JSON 파일 저장소
-│  ├─ ai.js                 # 규칙 기반 + Claude API 자동 전환
+│  ├─ ai.js                 # 규칙 기반 + Gemini API 자동 전환
 │  └─ tools.js              # MCP Tool 과 REST 가 공유하는 비즈니스 로직
 ├─ public/                  # 프론트엔드 (정적 서빙)
 │  ├─ index.html · plants.html · journal.html · list.html · stats.html · mcp.html
@@ -54,18 +54,19 @@ npm start
 ## 🔑 환경변수 (선택)
 실제 AI API 호출을 활성화하려면 `.env` 또는 Render 환경변수에 입력합니다.
 ```
-ANTHROPIC_API_KEY=sk-ant-...
-ANTHROPIC_MODEL=claude-haiku-4-5-20251001
+GOOGLE_API_KEY=AIza...
+GOOGLE_MODEL=gemini-2.5-flash
 ```
+- 발급: https://aistudio.google.com/apikey (Google 계정만 있으면 무료, 카드 등록 불필요)
 - 미설정 시: **규칙 기반 요약/조언으로 자동 동작 (무료)**
-- 설정 시: 동일 인터페이스로 Anthropic Claude API 호출
+- 설정 시: 동일 인터페이스로 Google Gemini API 호출 (사진 분석·메모/요약/조언 생성)
 - **API Key 는 서버 환경변수로만 사용되며, 프론트엔드에 절대 노출되지 않습니다.**
 
 ## ☁️ Render 배포 (요약)
 1. GitHub 에 push
 2. Render → **New Web Service** → 저장소 선택
 3. Runtime `Node`, Build `npm install`, Start `npm start`, Plan `Free`
-4. (선택) Environment 에 `ANTHROPIC_API_KEY` 추가
+4. (선택) Environment 에 `GOOGLE_API_KEY` 추가
 5. 배포 후 `https://<서비스명>.onrender.com` 으로 접속
 
 > 자세한 단계: [docs/07_Render배포가이드.md](docs/07_Render배포가이드.md)

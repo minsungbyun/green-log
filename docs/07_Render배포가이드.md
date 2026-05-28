@@ -33,8 +33,8 @@ git push -u origin main
 ## 3단계: 환경변수 (선택)
 실제 AI API 를 사용하려면:
 - Render 대시보드 → 해당 서비스 → **Environment**
-- `ANTHROPIC_API_KEY` 추가 (값은 본인 키)
-- `ANTHROPIC_MODEL` (선택, 기본 `claude-haiku-4-5-20251001`)
+- `GOOGLE_API_KEY` 추가 (값은 본인 키, https://aistudio.google.com/apikey 에서 무료 발급)
+- `GOOGLE_MODEL` (선택, 기본 `gemini-2.5-flash`)
 
 > 이 키는 **서버 환경변수로만 사용되며 프론트엔드에 노출되지 않습니다.**
 > 입력하지 않으면 자동으로 규칙 기반 요약/조언 모드로 동작합니다.

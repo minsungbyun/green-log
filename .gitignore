@@ -9,3 +9,6 @@ public/uploads/*
 npm-debug.log*
 .vscode/
 .idea/
+
+# 경진대회 제출 자료 (로컬·구글드라이브 보관용, 소스 저장소에는 미포함)
+submission/

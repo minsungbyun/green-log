@@ -319,6 +319,7 @@ async function loadPlants() {
         <div class="meta">시작: ${escapeHtml(p.startedAt || '-')}</div>
         ${p.memo ? `<div class="meta">${escapeHtml(p.memo)}</div>` : ''}
         <div class="actions">
+          <button class="icon-btn" data-act="water">💧 물주기 알림</button>
           <button class="icon-btn" data-act="edit">수정</button>
           <button class="icon-btn danger" data-act="del">삭제</button>
         </div>
@@ -462,6 +463,31 @@ editForm.addEventListener('submit', async (e) => {
   }
 });
 
+// ============ 물주기 알림 (Google Calendar 일정 추가 링크) ============
+
+// 로컬 시간 기준 YYYYMMDDTHHMMSS 포맷 (Google Calendar dates 용)
+function fmtCalDate(d) {
+  const p = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}T${p(d.getHours())}${p(d.getMinutes())}00`;
+}
+
+function buildWateringCalendarUrl(plantName, intervalDays) {
+  // 내일 오전 9시 시작, 30분짜리 반복 일정
+  const start = new Date();
+  start.setDate(start.getDate() + 1);
+  start.setHours(9, 0, 0, 0);
+  const end = new Date(start.getTime() + 30 * 60000);
+
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: `🌱 ${plantName} 물주기`,
+    details: `그린로그 - ${plantName} 물주기 알림입니다. 흙 상태를 확인하고 필요하면 물을 주세요.`,
+    dates: `${fmtCalDate(start)}/${fmtCalDate(end)}`,
+    recur: `RRULE:FREQ=DAILY;INTERVAL=${intervalDays}`,
+  });
+  return 'https://calendar.google.com/calendar/render?' + params.toString();
+}
+
 // ============ 리스트 액션 ============
 
 listEl.addEventListener('click', async (e) => {
@@ -477,6 +503,17 @@ listEl.addEventListener('click', async (e) => {
   } else if (act === 'edit') {
     const plant = await API.get('/api/plants/' + id);
     openEditModal(plant);
+  } else if (act === 'water') {
+    const plant = await API.get('/api/plants/' + id);
+    const input = prompt(`"${plant.name}" 물주기를 며칠마다 알림 받을까요? (Google Calendar 에 반복 일정으로 추가됩니다)`, '3');
+    if (input === null) return; // 취소
+    const days = parseInt(input, 10);
+    if (!days || days < 1) {
+      alert('1 이상의 숫자를 입력해 주세요.');
+      return;
+    }
+    const url = buildWateringCalendarUrl(plant.name, days);
+    window.open(url, '_blank');
   }
 });
 
